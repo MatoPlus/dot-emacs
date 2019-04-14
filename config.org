@@ -131,6 +131,14 @@
                     (interactive)
                     (find-file "~/.emacs.d/quicknotes.org")))
 #+END_SRC
+** Org-bullets
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
+
+#+END_SRC
 * IDO
 ** enable IDO mode
 #+BEGIN_SRC emacs-lisp
