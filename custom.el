@@ -32,7 +32,7 @@
      ("???" . "#dc752f"))))
  '(package-selected-packages
    (quote
-    (beacon git-gutter linum-relative undo-tree buffer-move buffer-move\.el neotree projectile magit zzz-to-char flycheck ox-twbs yasnippet-snippets yasnippet sudo-edit expand-region mark-multiple swiper popup-kill-ring hlinum symon dmenu spaceline dashboard rainbow-delimiters company swtich-window smex ido-vertical-mode rainbow-mode avy dracula-theme which-key use-package)))
+    (git-gutter linum-relative undo-tree buffer-move buffer-move\.el neotree projectile magit zzz-to-char flycheck ox-twbs yasnippet-snippets yasnippet sudo-edit expand-region mark-multiple swiper popup-kill-ring hlinum symon dmenu spaceline dashboard rainbow-delimiters company swtich-window smex ido-vertical-mode rainbow-mode avy dracula-theme which-key use-package)))
  '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
