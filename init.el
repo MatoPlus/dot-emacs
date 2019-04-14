@@ -22,9 +22,6 @@
 ;; load settings.
 (org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
 
-;; load wm
-;(org-babel-load-file (expand-file-name "~/.emacs.d/wm.org"))
-
 ;; load looks and feels
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
