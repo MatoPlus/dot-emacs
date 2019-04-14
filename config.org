@@ -449,3 +449,11 @@ A live visual on git changes
     :ensure t)
   (global-git-gutter-mode +1)
 #+END_SRC
+* Beacon
+A package that makes it easier to see the mark/cursor
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package beacon
+    :ensure t
+    :init(beacon-mode 1))
+#+END_SRC
