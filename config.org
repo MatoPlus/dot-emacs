@@ -448,3 +448,36 @@ A package that makes it easier to keep track of the mark/cursor
     :init
     (beacon-mode 1))
 #+END_SRC
+* Evil mode
+An extensive vi layer for better editing experience.
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :init
+    (setq evil-normal-state-cursor '("orchid")
+          evil-emacs-state-cursor '("light blue")
+          evil-insert-state-cursor '("SpringGreen" bar)
+          ))
+  (require 'evil)
+  (evil-mode 1)
+  ;; remap C-u for vim-like functionality.
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+  (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+  (define-key evil-insert-state-map (kbd "C-u")
+    (lambda ()
+      (interactive)
+      (evil-delete (point-at-bol) (point))))
+#+END_SRC
+* Diminish
+Hide some of the minor modes taking up space on the modeline
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure
+    :init
+    (diminish 'beacon-mode)
+    (diminish 'rainbow-mode)
+    (diminish 'which-key-mode)
+    (diminish 'undo-tree-mode))
+#+END_SRC
