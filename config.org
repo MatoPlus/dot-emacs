@@ -58,8 +58,12 @@
 #+BEGIN_SRC emacs-lisp
   ;; remove suspend emacs shortcut
   (global-unset-key (kbd "C-z"))
+
   ;; shortcut to open up ansi-term
   (global-set-key (kbd "C-c C-<return>") 'ansi-term)
+
+  ;; Commenting
+  (global-set-key (kbd "C-c c l") 'comment-line)
 #+END_SRC
 
 ** scroll margin for easier reading
