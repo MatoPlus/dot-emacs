@@ -267,6 +267,14 @@ A package for auto-completion, note that this still requires manually adding bac
     (setq company-minimum-prefix-length 3)
     :init
     (add-hook 'after-init-hook 'global-company-mode))
+
+  (use-package company-quickhelp
+    :ensure t
+    :config
+    (setq company-quickhelp-delay 1))
+
+  (require 'company-quickhelp)
+  (company-quickhelp-mode)
 #+END_SRC
 * Spaceline
 A package that enhance the readability of the modeline.
@@ -458,7 +466,8 @@ An extensive vi layer for better editing experience.
     (setq evil-normal-state-cursor '("orchid")
           evil-emacs-state-cursor '("light blue")
           evil-insert-state-cursor '("SpringGreen" bar)
-          ))
+          evil-replace-state-cursor '("chocolate1" hbar)
+          evil-visual-state-cursor '("gray")))
   (require 'evil)
   (evil-mode 1)
   ;; remap C-u for vim-like functionality.
