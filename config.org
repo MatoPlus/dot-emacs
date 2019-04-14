@@ -466,6 +466,7 @@ An extensive vi layer for better editing experience.
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
+    :bind ("C-c b t" . evil-switch-to-windows-last-buffer)
     :init
     (setq evil-normal-state-cursor '("orchid")
           evil-emacs-state-cursor '("light blue")
@@ -493,4 +494,20 @@ Hide some of the minor modes taking up space on the modeline
     (diminish 'rainbow-mode)
     (diminish 'which-key-mode)
     (diminish 'undo-tree-mode))
+#+END_SRC
+* Eyebrowse
+Workspace setup
+** initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package eyebrowse
+    :ensure t
+    :config (progn
+              (define-key eyebrowse-mode-map (kbd "C-1") 'eyebrowse-switch-to-window-config-1)
+              (define-key eyebrowse-mode-map (kbd "C-2") 'eyebrowse-switch-to-window-config-2)
+              (define-key eyebrowse-mode-map (kbd "C-3") 'eyebrowse-switch-to-window-config-3)
+              (define-key eyebrowse-mode-map (kbd "C-4") 'eyebrowse-switch-to-window-config-4)
+              (define-key eyebrowse-mode-map (kbd "C-5") 'eyebrowse-switch-to-window-config-5)
+              ))
+  (require 'eyebrowse)
+  (eyebrowse-mode t)
 #+END_SRC
