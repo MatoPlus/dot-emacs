@@ -280,6 +280,8 @@ A package for auto-completion, note that this still requires manually adding bac
     :init
     (add-hook 'after-init-hook 'global-company-mode))
 
+
+  ;; tooltips
   (use-package company-quickhelp
     :ensure t
     :config
@@ -287,6 +289,38 @@ A package for auto-completion, note that this still requires manually adding bac
 
   (require 'company-quickhelp)
   (company-quickhelp-mode)
+
+
+  ;; python backend
+  (use-package company-jedi
+    :ensure t
+    :config
+      (require 'company)
+      (add-to-list 'company-backends 'company-jedi))
+
+  (defun python-mode-company-init ()
+    (setq-local company-backends '((company-jedi
+                                    company-etags
+                                    company-dabbrev-code))))
+  (use-package company-jedi
+    :ensure t
+    :config
+      (require 'company)
+      (add-hook 'python-mode-hook 'python-mode-company-init))
+
+
+  ;; bash backend
+  (defun shell-mode-company-init ()
+    (setq-local company-backends '((company-shell
+                                    company-shell-env
+                                    company-etags
+                                    company-dabbrev-code))))
+
+  (use-package company-shell
+    :ensure t
+    :config
+      (require 'company)
+      (add-hook 'sh-mode-hook 'shell-mode-company-init))
 #+END_SRC
 * Spaceline
 A package that enhance the readability of the modeline.
@@ -377,9 +411,10 @@ A package that allows you to add and use snippets.
 #+END_SRC
 ** Hooks
 #+BEGIN_SRC emacs-lisp
+
   ;; manually add required hooks... avoid global-mode
   (add-hook 'python-mode-hook 'yas-minor-mode)
-  (add-hook 'java-mode-hook 'yas-minor-mode)
+  (add-hook 'sh-mode-hook 'yas-minor-mode)
 #+END_SRC
 
 * Flycheck
@@ -388,6 +423,11 @@ A package that enables syntax checking for programming
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :ensure t)
+#+END_SRC
+** Hooks
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'sh-mode-hook 'flycheck-mode)
 #+END_SRC
 * ZZZ
 An upgraded zap-to-char package that allows you to delete to a selected character.
@@ -501,7 +541,9 @@ Hide some of the minor modes taking up space on the modeline
     (diminish 'beacon-mode)
     (diminish 'rainbow-mode)
     (diminish 'which-key-mode)
-    (diminish 'undo-tree-mode))
+    (diminish 'undo-tree-mode)
+    (diminish 'git-gutter-mode)
+    (diminish 'subword-mode))
 #+END_SRC
 * Eyebrowse
 Workspace setup
@@ -518,4 +560,11 @@ Workspace setup
               ))
   (require 'eyebrowse)
   (eyebrowse-mode t)
+#+END_SRC
+* Flymd
+A package for markdown live preview
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package flymd
+    :ensure t)
 #+END_SRC
