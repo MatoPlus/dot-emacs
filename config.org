@@ -607,3 +607,10 @@ A package for markdown live preview
   (use-package flymd
     :ensure t)
 #+END_SRC
+* Quick run
+A package that allows you to quickly execute files of many languages.
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package quickrun
+    :ensure t)
+#+END_SRC
