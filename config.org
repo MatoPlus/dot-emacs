@@ -274,6 +274,7 @@ A package for auto-completion, note that this still requires manually adding bac
   ;; install company mode
   (use-package company
     :ensure t
+    :bind (("C-c /" . company-complete))
     :config
     (setq company-idle-delay 0)
     (setq company-minimum-prefix-length 3)
