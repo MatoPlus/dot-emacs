@@ -413,13 +413,25 @@ A package that adds a popup menu for kill ring selections
     :ensure t
     :bind ("C-s" . swiper))
 #+END_SRC
-* Mark-multiple
-Basically multi-cursor...
+* Multiple-cursors
+Multi-cursor for fast replace (for emacs mode)
 ** Initialize
 #+BEGIN_SRC emacs-lisp
-  (use-package mark-multiple
-    :ensure t
-    :bind ("C-c q" . 'mark-next-like-this))
+  (use-package multiple-cursors
+    :ensure t)
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+#+END_SRC
+* Evil-mc
+Multi-cursors for evil mode
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-mc
+    :ensure t)
+  (global-evil-mc-mode 1)
 #+END_SRC
 * Expand-region
 A package that allows you to expand selection from current position.
