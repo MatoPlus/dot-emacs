@@ -3,6 +3,11 @@
 #+BEGIN_SRC emacs-lisp
   (setq debug-on-error t)
 #+END_SRC
+** Daemon
+#+BEGIN_SRC emacs-lisp
+  ;; start emacs as daemon for emacsclient functionality.
+  (server-start)
+#+END_SRC
 * Terminal
 ** setting default shell to bash
 #+BEGIN_SRC emacs-lisp
