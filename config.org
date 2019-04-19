@@ -190,7 +190,8 @@ A package that offers a much better startup screen, displaying recent files.
     :ensure t
     :config
     (dashboard-setup-startup-hook)
-    (setq dashboard-items '((recents . 10)))
+    (setq dashboard-items '((recents . 5)
+                            (projects . 5)))
     ;; This specifically uses the fortune command to generate a welcome screen message.
     (setq dashboard-banner-logo-title (shell-command-to-string "fortune -s -n 100 2> /dev/null | tr '\n' ' ' | awk '{$1=$1;print}'")))
 #+END_SRC
@@ -351,7 +352,6 @@ A package for auto-completion, note that this still requires manually adding bac
     :config
       (require 'company)
       (add-hook 'python-mode-hook 'python-mode-company-init))
-
 
   ;; bash backend
   (defun shell-mode-company-init ()
