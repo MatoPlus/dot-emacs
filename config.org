@@ -133,30 +133,6 @@
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 
 #+END_SRC
-* IDO
-** enable IDO mode
-#+BEGIN_SRC emacs-lisp
-  ;; adding some standard ido preferences and enable ido
-  (setq ido-enable-flex-matching nil)
-  (setq ido-create-new-buffer 'always)
-  (setq ido-everywhere t)
-  (ido-mode 1)
-#+END_SRC
-** IDO-vertical package, looks better
-#+BEGIN_SRC emacs-lisp
-  (use-package ido-vertical-mode
-    :ensure t
-    :init (ido-vertical-mode 1))
-  ;; bind keys for moving up and down
-  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
-#+END_SRC
-** IDO for M-x (smex)
-#+BEGIN_SRC emacs-lisp
-  (use-package smex
-    :ensure t
-    :init (smex-initialize)
-    :bind ("M-x" . smex))
-#+END_SRC
 * Buffers
 ** Set default buffer manager to ibuffer
 #+BEGIN_SRC emacs-lisp
@@ -184,6 +160,44 @@ A package that offers a much better startup screen, displaying recent files.
     (setq dashboard-banner-logo-title
           (format "Emacs ready in %.2f seconds with %d garbage collections."
                   (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
+#+END_SRC
+* Ivy
+Completion framework
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+    :ensure t
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq enable-recursive-minibuffers t))
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+#+END_SRC
+* Swiper
+** a better search
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind ("C-s" . swiper))
+#+END_SRC
+
+* Counsel
+Extension to functionality of ivy and swiper commands
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c c g") 'counsel-git)
+  (global-set-key (kbd "C-c c r") 'counsel-git-grep)
+  (global-set-key (kbd "C-c c a") 'counsel-ag)
+  (global-set-key (kbd "C-c c l") 'counsel-locate)
 #+END_SRC
 * Avy
 A package that allows you to go to any character on screen.
@@ -345,6 +359,12 @@ A package for auto-completion, note that this still requires manually adding bac
       (require 'company)
       (add-hook 'sh-mode-hook 'shell-mode-company-init))
 #+END_SRC
+* Spacemacs theme
+#+BEGIN_SRC emacs-lisp
+  (use-package spacemacs-common
+    :ensure spacemacs-theme
+    :config (load-theme 'spacemacs-dark t))
+#+END_SRC
 * Spaceline
 A package that enhance the readability of the modeline.
 ** Initialize
@@ -364,27 +384,6 @@ A package that adds a popup menu for kill ring selections
   (use-package popup-kill-ring
     :ensure t
     :bind ("M-y" . popup-kill-ring))
-#+END_SRC
-
-* Swiper
-** a better search
-#+BEGIN_SRC emacs-lisp
-  (use-package swiper
-    :ensure t
-    :bind ("C-s" . swiper))
-#+END_SRC
-
-* Multiple-cursors
-Multi-cursor for fast replace (for emacs mode)
-** Initialize
-#+BEGIN_SRC emacs-lisp
-  (use-package multiple-cursors
-    :ensure t)
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
 #+END_SRC
 
 * Evil-mc
