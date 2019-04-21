@@ -504,20 +504,6 @@ A package that gives you a visual history of undos
     :init (global-undo-tree-mode))
 #+END_SRC
 
-* Nlinum-relative
-Relative line mode ~ more efficient!
-** Initialize
-#+BEGIN_SRC emacs-lisp
-  (use-package nlinum-relative
-    :ensure t
-    :config
-    (nlinum-relative-setup-evil)                    ;; setup for evil
-    (add-hook 'prog-mode-hook 'nlinum-relative-mode)
-    (setq nlinum-relative-redisplay-delay 0)      ;; delay
-    (setq nlinum-relative-current-symbol "")      ;; or "" for display current line number
-    (setq nlinum-relative-offset 0))                 ;; 1 if you want 0, 2, 3...
-#+END_SRC
-
 * Git gutter
 A live visual on git changes
 ** Initialize
