@@ -88,11 +88,15 @@
 #+BEGIN_SRC emacs-lisp
   (when window-system (global-prettify-symbols-mode t))
 #+END_SRC
-* Clock
-** Enables clock on modeline
+** highlight line
 #+BEGIN_SRC emacs-lisp
-  (setq display-time-24hr-format 5)
-  (display-time-mode 1)
+  (when window-system (add-hook 'prog-mode-hook 'hl-line-mode))
+#+END_SRC
+* Modeline
+** Settings
+#+BEGIN_SRC emacs-lisp
+  (setq line-number-mode t)
+  (setq column-number-mode t)
 #+END_SRC
 * Org mode
 ** basic config
@@ -157,6 +161,7 @@ A package that offers a much better startup screen, displaying recent files.
     (dashboard-setup-startup-hook)
     (setq dashboard-items '((recents . 5)
                             (projects . 5)))
+    (setq dashboard-startup-banner "~/.emacs.d/img/emacs.png")
     (setq dashboard-banner-logo-title
           (format "Emacs ready in %.2f seconds with %d garbage collections."
                   (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
@@ -260,13 +265,6 @@ Some custom tweaks to enhance the experience with window manipulation.
     (other-window 1))
   (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 #+END_SRC
-** Functions to move between Window 
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c h") 'windmove-left)
-  (global-set-key (kbd "C-c l") 'windmove-right)
-  (global-set-key (kbd "C-c k") 'windmove-up)
-  (global-set-key (kbd "C-c j") 'windmove-down)
-#+END_SRC
 * Editing
 ** Line transpose
 #+BEGIN_SRC emacs-lisp
@@ -314,7 +312,9 @@ A package for auto-completion, note that this still requires manually adding bac
   (use-package company
     :ensure t
     :bind (("C-c /" . company-complete))
-    :config
+
+
+  :config
     (setq company-idle-delay 0)
     (setq company-minimum-prefix-length 3)
     :init
@@ -360,23 +360,12 @@ A package for auto-completion, note that this still requires manually adding bac
       (add-hook 'sh-mode-hook 'shell-mode-company-init))
 #+END_SRC
 * Spacemacs theme
+** Initialize
 #+BEGIN_SRC emacs-lisp
   (use-package spacemacs-common
     :ensure spacemacs-theme
     :config (load-theme 'spacemacs-dark t))
 #+END_SRC
-* Spaceline
-A package that enhance the readability of the modeline.
-** Initialize
-#+BEGIN_SRC emacs-lisp
-  (use-package spaceline
-    :ensure
-    :config
-    (require 'spaceline-config)
-    (setq powerline-default-separator (quote arrow))
-    (spaceline-emacs-theme))
-#+END_SRC
-
 * Popup kill ring
 A package that adds a popup menu for kill ring selections
 ** Initialize
@@ -384,15 +373,6 @@ A package that adds a popup menu for kill ring selections
   (use-package popup-kill-ring
     :ensure t
     :bind ("M-y" . popup-kill-ring))
-#+END_SRC
-
-* Evil-mc
-Multi-cursors for evil mode
-** Initialize
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-mc
-    :ensure t)
-  (global-evil-mc-mode 1)
 #+END_SRC
 
 * Expand-region
@@ -486,12 +466,15 @@ A package that allows you to move windows around
 ** Initialize
 #+BEGIN_SRC emacs-lisp
   (use-package buffer-move
-    :ensure t
-    :bind
-    ("C-c b h" . buf-move-left)
-    ("C-c b l" . buf-move-right)
-    ("C-c b k" . buf-move-up)
-    ("C-c b j" . buf-move-down)
+    :ensure t)
+
+  (require 'evil-leader)
+  (global-evil-leader-mode)
+  (evil-leader/set-key
+    "<SPC> h" 'buf-move-left
+    "<SPC> j" 'buf-move-down
+    "<SPC> k" 'buf-move-up
+    "<SPC> l" 'buf-move-right
     )
 #+END_SRC
 
@@ -511,16 +494,6 @@ A live visual on git changes
   (use-package git-gutter
     :ensure t)
   (global-git-gutter-mode +1)
-#+END_SRC
-
-* Beacon
-A package that makes it easier to keep track of the mark/cursor
-** Initialize
-#+BEGIN_SRC emacs-lisp
-  (use-package beacon
-    :ensure t
-    :init
-    (beacon-mode 1))
 #+END_SRC
 
 * Evil leader
@@ -558,6 +531,15 @@ An extensive vi layer for better editing experience.
       (interactive)
       (evil-delete (point-at-bol) (point))))
 #+END_SRC
+* Evil-mc
+Multi-cursors for evil mode
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-mc
+    :ensure t)
+  (global-evil-mc-mode 1)
+#+END_SRC
+
 * Evil-nerd-commenter
 Commenting in evil mode
 ** Initialize
@@ -581,6 +563,20 @@ Commenting in evil mode
   )
 #+END_SRC
 
+* General Evil-leader shortcuts
+** Window movement
+#+BEGIN_SRC emacs-lisp
+  (require 'evil-leader)
+  (global-evil-leader-mode)
+  (evil-leader/set-key
+    "h" 'previous-buffer
+    "l" 'next-buffer
+    "f h" 'windmove-left
+    "f j" 'windmove-down
+    "f k" 'windmove-up
+    "f l" 'windmove-right
+    )
+#+END_SRC
 * Diminish
 Hide some of the minor modes taking up space on the modeline
 ** Initialize
@@ -594,7 +590,8 @@ Hide some of the minor modes taking up space on the modeline
     (diminish 'undo-tree-mode)
     (diminish 'git-gutter-mode)
     (diminish 'subword-mode)
-    (diminish 'org-indent-mode))
+    (diminish 'org-indent-mode)
+    (diminish 'ivy-mode))
 #+END_SRC
 
 * Eyebrowse
