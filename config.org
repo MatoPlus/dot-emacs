@@ -166,6 +166,14 @@ A package that offers a much better startup screen, displaying recent files.
           (format "Emacs ready in %.2f seconds with %d garbage collections."
                   (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
 #+END_SRC
+* Smex
+Mainly used for ivy "most recent" function
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t
+    :init (smex-initialize))
+#+END_SRC
 * Ivy
 Completion framework
 ** Initialize
