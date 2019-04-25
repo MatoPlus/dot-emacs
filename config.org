@@ -142,6 +142,11 @@
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 
 #+END_SRC
+** Agenda
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files (list "~/Org/organizer.org"
+                               ))
+#+END_SRC
 * Buffers
 ** Set default buffer manager to ibuffer
 #+BEGIN_SRC emacs-lisp
@@ -165,7 +170,8 @@ A package that offers a much better startup screen, displaying recent files.
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-items '((recents . 5)
-                            (projects . 5)))
+                            (projects . 5)
+                            (agenda . 5)))
     (setq dashboard-startup-banner "~/.emacs.d/img/emacs.png")
     (setq dashboard-banner-logo-title
           (format "Emacs ready in %.2f seconds with %d garbage collections."
