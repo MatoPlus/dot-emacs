@@ -166,6 +166,16 @@ A package that offers a much better startup screen, displaying recent files.
           (format "Emacs ready in %.2f seconds with %d garbage collections."
                   (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
 #+END_SRC
+* IDO-vertical
+Used to fill out some of the additional selections that doesn't use ivy
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package ido-vertical-mode
+    :ensure t
+    :init (ido-vertical-mode 1))
+  ;; bind keys for moving up and down
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+#+END_SRC
 * Smex
 Mainly used for ivy "most recent" function
 ** Initialize
