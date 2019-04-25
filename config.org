@@ -92,6 +92,10 @@
 #+BEGIN_SRC emacs-lisp
   (when window-system (add-hook 'prog-mode-hook 'hl-line-mode))
 #+END_SRC
+** Spell check
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook 'flyspell-mode)
+#+END_SRC
 * Modeline
 ** Settings
 #+BEGIN_SRC emacs-lisp
