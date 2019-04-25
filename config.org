@@ -111,6 +111,7 @@
   (setq org-src-fontify-natively t
         org-src-tab-acts-natively t)
 
+  (setq org-ellipsis "⤵")
 #+END_SRC
 ** templates
 #+BEGIN_SRC emacs-lisp
