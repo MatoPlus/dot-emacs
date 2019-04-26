@@ -115,7 +115,11 @@
   (setq org-src-fontify-natively t
         org-src-tab-acts-natively t)
 
+  ;; change ellipsis for org
   (setq org-ellipsis "⤵")
+
+  ;; make sure to do time stamp when done
+  (setq org-log-done 'time)
 #+END_SRC
 ** templates
 #+BEGIN_SRC emacs-lisp
@@ -221,17 +225,6 @@ Extension to functionality of ivy and swiper commands
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
     :ensure t)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  (global-set-key (kbd "<f1> l") 'counsel-find-library)
-  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-c c g") 'counsel-git)
-  (global-set-key (kbd "C-c c r") 'counsel-git-grep)
-  (global-set-key (kbd "C-c c a") 'counsel-ag)
-  (global-set-key (kbd "C-c c l") 'counsel-locate)
 #+END_SRC
 * Avy
 A package that allows you to go to any character on screen.
@@ -241,20 +234,13 @@ A package that allows you to go to any character on screen.
     :ensure t
     :bind ("M-s" . avy-goto-char))
 #+END_SRC
-* Config edit and reload
-Some custom shortcuts to edit and reload main config file.
-** find config file and edit
-#+BEGIN_SRC emacs-lisp
-  (defun config-visit ()
-    (interactive)
-    (find-file "~/.emacs.d/config.org"))
-  (global-set-key (kbd "C-c e") 'config-visit)
-#+END_SRC
+* Config
+Some custom shortcuts to reload main config file.
 ** reload config file
 #+BEGIN_SRC emacs-lisp
   (defun config-reload ()
     (interactive)
-    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
+    (load-file "~/.emacs.d/init.el"))
   (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
 * Rainbow
@@ -419,7 +405,7 @@ A package that allow you to edit remote files and local files that require addit
 #+BEGIN_SRC emacs-lisp
   (use-package sudo-edit
     :ensure t
-    :bind ("C-c p" . sudo-edit))
+    :bind ("C-c e" . sudo-edit))
 #+END_SRC
 
 * Yasnippet
@@ -476,12 +462,12 @@ A package that integrates git with more intuitive controls
 * Projectile
 ** Initialize
 #+BEGIN_SRC emacs-lisp
-    (use-package projectile
-      :ensure t
-      :init
-      (projectile-mode 1))
+  (use-package projectile
+    :ensure t
+    :init
+    (projectile-mode 1))
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 #+END_SRC
-
 * Neotree
 ** Initialize
 #+BEGIN_SRC emacs-lisp
@@ -654,4 +640,14 @@ A package that allows you to quickly execute files of many languages.
 #+BEGIN_SRC emacs-lisp
   (use-package quickrun
     :ensure t)
+#+END_SRC
+* Ace-window
+A package that allows you to switch focus between windows quickly
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :bind
+    ("C-x o" . 'ace-window)
+    ("C-c s" . 'ace-swap-window))
 #+END_SRC
