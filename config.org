@@ -343,6 +343,7 @@ A package for auto-completion, note that this still requires manually adding bac
   :config
     (setq company-idle-delay 0)
     (setq company-minimum-prefix-length 3)
+    (setq company-selection-wrap-around t)
     :init
     (add-hook 'after-init-hook 'global-company-mode))
 
