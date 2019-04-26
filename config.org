@@ -181,6 +181,16 @@ A package that offers a much better startup screen, displaying recent files.
           (format "Emacs ready in %.2f seconds with %d garbage collections."
                   (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
 #+END_SRC
+* Nlinum-relative
+Relative line numbers with jit-lock
+** Initialize
+#+BEGIN_SRC emacs-lisp
+  (use-package nlinum-relative
+    :ensure t
+    :config
+    (nlinum-relative-setup-evil)
+    (add-hook 'prog-mode-hook 'nlinum-relative-mode))
+#+END_SRC
 * IDO-vertical
 Used to fill out some of the additional selections that doesn't use ivy
 ** Initialize
@@ -224,7 +234,8 @@ Extension to functionality of ivy and swiper commands
 ** Initialize
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
-    :ensure t)
+    :ensure t
+    :config (counsel-mode))
 #+END_SRC
 * Avy
 A package that allows you to go to any character on screen.
